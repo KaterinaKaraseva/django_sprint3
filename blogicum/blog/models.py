@@ -41,6 +41,7 @@ class Location(PublishedModel):
         verbose_name_plural = 'Местоположения'
 
     def __str__(self):
+        """Строковое представление объекта Location."""
         return self.name
 
 
@@ -74,6 +75,7 @@ class Category(PublishedModel):
         verbose_name_plural = 'Категории'
 
     def __str__(self):
+        """Строковое представление объекта Category."""
         return self.title
 
 
@@ -133,4 +135,5 @@ class Post(PublishedModel):
         ordering = ['-pub_date']
 
     def __str__(self):
+        """Строковое представление объекта Post."""
         return self.title
