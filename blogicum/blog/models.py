@@ -61,8 +61,8 @@ class Category(PublishedModel):
         blank=False,
         verbose_name='Идентификатор',
         help_text=(
-            'Идентификатор страницы для URL; '
-            'разрешены символы латиницы, цифры, дефис и подчёркивание.'
+            'Идентификатор страницы для URL; разрешены символы латиницы, '
+            'цифры, дефис и подчёркивание.'
         )
     )
 
@@ -101,7 +101,8 @@ class Post(PublishedModel):
         User,
         blank=False,
         on_delete=models.CASCADE,
-        verbose_name='Автор публикации'
+        verbose_name='Автор публикации',
+        related_name='posts'
     )
 
     location = models.ForeignKey(
@@ -109,7 +110,8 @@ class Post(PublishedModel):
         blank=True,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Местоположение'
+        verbose_name='Местоположение',
+        related_name='posts'
     )
 
     category = models.ForeignKey(
@@ -117,7 +119,8 @@ class Post(PublishedModel):
         blank=False,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Категория'
+        verbose_name='Категория',
+        related_name='posts'
     )
 
     class Meta:
