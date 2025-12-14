@@ -22,6 +22,7 @@ class PublishedModel(models.Model):
     )
     
     class Meta:
+        """Метаданные для абстрактной модели."""
         abstract = True
 
 
@@ -35,6 +36,7 @@ class Location(PublishedModel):
     )
 
     class Meta:
+        """Метаданные для модели Location."""
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
 
@@ -67,6 +69,7 @@ class Category(PublishedModel):
     )
 
     class Meta:
+        """Метаданные для модели Category."""
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
@@ -124,6 +127,7 @@ class Post(PublishedModel):
     )
 
     class Meta:
+        """Метаданные для модели Post."""
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
         ordering = ['-pub_date']
