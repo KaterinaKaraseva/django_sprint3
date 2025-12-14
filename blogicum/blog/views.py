@@ -39,12 +39,11 @@ def category_posts(request, category_slug):
         is_published=True
     )
     
-    current_time = timezone.now()
-    post_list = (
-        get_published_posts()
-        .filter(category=category)
-        .order_by('-pub_date')
-    )
+    post_list = category.post_set.filter(
+        is_published=True,
+        pub_date__lte=timezone.now(),
+        category__is_published=True
+    ).select_related('category', 'location', 'author')
     
     context = {
         'category': category,
@@ -58,7 +57,6 @@ def post_detail(request, pk):
     """Страница отдельной публикации."""
     template = 'blog/detail.html'
     
-    current_time = timezone.now()
     post = get_object_or_404(
         get_published_posts(),
         pk=pk
