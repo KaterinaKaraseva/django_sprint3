@@ -1,12 +1,32 @@
-"""Модель."""
+"""Модели."""
 from django.db import models
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
 
-class Location(models.Model):
-    """Модель."""
+class PublishedModel(models.Model):
+    """Абстрактная модель с общими полями."""
+    
+    is_published = models.BooleanField(
+        default=True,
+        blank=False,
+        verbose_name='Опубликовано',
+        help_text='Снимите галочку, чтобы скрыть публикацию.'
+    )
+    
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        blank=False,
+        verbose_name='Добавлено'
+    )
+    
+    class Meta:
+        abstract = True
+
+
+class Location(PublishedModel):
+    """Модель местоположения."""
 
     name = models.CharField(
         max_length=256,
@@ -14,28 +34,13 @@ class Location(models.Model):
         verbose_name='Название места'
     )
 
-    is_published = models.BooleanField(
-        default=True,
-        blank=False,
-        verbose_name='Опубликовано',
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        blank=False,
-        verbose_name='Добавлено'
-    )
-
     class Meta:
-        """Модель."""
-
         verbose_name = 'местоположение'
         verbose_name_plural = 'Местоположения'
 
 
-class Category(models.Model):
-    """Модель."""
+class Category(PublishedModel):
+    """Модель категории."""
 
     title = models.CharField(
         max_length=256,
@@ -58,33 +63,18 @@ class Category(models.Model):
         )
     )
 
-    is_published = models.BooleanField(
-        default=True,
-        blank=False,
-        verbose_name='Опубликовано',
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
-    )
-
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        blank=False,
-        verbose_name='Добавлено'
-    )
-
     class Meta:
-        """Модель."""
-
         verbose_name = 'категория'
         verbose_name_plural = 'Категории'
 
 
-class Post(models.Model):
-    """Модель."""
+class Post(PublishedModel):
+    """Модель публикации."""
 
     title = models.CharField(
         max_length=256,
         blank=False,
-        verbose_name='Добавлено'
+        verbose_name='Заголовок'
     )
 
     text = models.TextField(
@@ -124,21 +114,10 @@ class Post(models.Model):
         verbose_name='Категория'
     )
 
-    is_published = models.BooleanField(
-        default=True,
-        blank=False,
-        verbose_name='Опубликовано',
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
-    )
-
-    created_at = models.DateTimeField(
-        blank=False,
-        auto_now_add=True,
-        verbose_name='Добавлено'
-    )
-
     class Meta:
-        """Модель."""
-
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
+        ordering = ['-pub_date']
+
+    def __str__(self):
+        return self.title
