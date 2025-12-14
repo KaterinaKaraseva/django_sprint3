@@ -7,20 +7,20 @@ User = get_user_model()
 
 class PublishedModel(models.Model):
     """Абстрактная модель с общими полями."""
-    
+
     is_published = models.BooleanField(
         default=True,
         blank=False,
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
     )
-    
+
     created_at = models.DateTimeField(
         auto_now_add=True,
         blank=False,
         verbose_name='Добавлено'
     )
-    
+
     class Meta:
         """Метаданные для абстрактной модели."""
         abstract = True

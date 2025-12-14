@@ -6,7 +6,7 @@ from .models import Category, Post, Location
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     """Админ-панель для модели Category."""
-    
+
     list_display = ('title', 'slug', 'is_published', 'created_at')
     list_filter = ('is_published',)
     search_fields = ('title', 'description')
@@ -16,8 +16,8 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     """Админ-панель для модели Post."""
-    
-    list_display = ('title', 'pub_date', 'author', 'category', 
+
+    list_display = ('title', 'pub_date', 'author', 'category',
                     'location', 'is_published', 'created_at')
     list_filter = ('is_published', 'category', 'pub_date', 'author')
     search_fields = ('title', 'text')
@@ -31,7 +31,7 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
     """Админ-панель для модели Location."""
-    
+
     list_display = ('name', 'is_published', 'created_at')
     list_filter = ('is_published',)
     search_fields = ('name',)
